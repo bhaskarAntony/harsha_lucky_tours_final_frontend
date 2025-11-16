@@ -230,97 +230,176 @@ const AdminPackages = () => {
 
         {/* Packages Table */}
         <div className="card">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900 flex items-center">
-              <PackageIcon className="w-5 h-5 mr-2" />
-              All Packages ({packages.length})
-            </h2>
+  <div className="px-6 py-4 border-b border-gray-200">
+    <h2 className="text-lg font-medium text-gray-900 flex items-center">
+      <PackageIcon className="w-5 h-5 mr-2" />
+      All Packages ({packages.length})
+    </h2>
+  </div>
+
+  {/* Desktop Table */}
+  <div className="hidden md:block overflow-x-auto">
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Package
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Destination
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Duration
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Draw Date
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Installment
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Status
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {packages.map((pkg) => (
+          <tr key={pkg._id} className="hover:bg-gray-50">
+            <td className="px-6 py-4">
+              <div>
+                <p className="text-sm font-medium text-gray-900">{pkg.name}</p>
+                <p className="text-sm text-gray-500">{pkg.packageId}</p>
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="flex items-center">
+                <MapPin className="w-4 h-4 text-gray-400 mr-2" />
+                <span className="text-sm text-gray-900">
+                  {pkg.destination?.join(', ')}
+                </span>
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {pkg.duration}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {pkg.drawDate ? new Date(pkg.drawDate).toLocaleDateString() : 'N/A'}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <p className="text-sm font-medium text-green-600">
+                ₹{(pkg.monthlyInstallment || 0).toLocaleString()}
+              </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(pkg.status)}`}>
+                {pkg.status.replace('_', ' ').toUpperCase()}
+              </span>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <div className="flex items-center space-x-2">
+                <Link to={`/admin/package/details/${pkg._id}`} className="text-blue-600 hover:text-blue-900">
+                  <Eye className="w-4 h-4" />
+                </Link>
+                <button
+                  onClick={() => openEditModal(pkg)}
+                  className="text-yellow-600 hover:text-yellow-900"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDeletePackage(pkg._id)}
+                  className="text-red-600 hover:text-red-900"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Mobile Cards */}
+  <div className="md:hidden space-y-4 p-4">
+    {packages.map((pkg) => (
+      <div
+        key={pkg._id}
+        className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+      >
+        {/* Header: Name + Status */}
+        <div className="flex justify-between items-start mb-3">
+          <div>
+            <p className="font-semibold text-gray-900">{pkg.name}</p>
+            <p className="text-xs text-gray-500">{pkg.packageId}</p>
           </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Package
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Destination
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Duration
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Draw Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Installment
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {packages.map((pkg) => (
-                  <tr key={pkg._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">{pkg.name}</p>
-                        <p className="text-sm text-gray-500">{pkg.packageId}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <MapPin className="w-4 h-4 text-gray-400 mr-2" />
-                        <span className="text-sm text-gray-900">
-                          {pkg.destination?.join(', ')}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {pkg.duration}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {pkg.drawDate ? new Date(pkg.drawDate).toLocaleDateString() : 'N/A'}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <p className="text-sm font-medium text-green-600">
-                        ₹{pkg.monthlyInstallment?.toLocaleString()}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(pkg.status)}`}>
-                        {pkg.status.replace('_', ' ').toUpperCase()}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center space-x-2">
-                        <Link to={`/admin/package/details/${pkg._id}`} className="text-blue-600 hover:text-blue-900">
-                          <Eye className="w-4 h-4" />
-                        </Link>
-                        <button
-                          onClick={() => openEditModal(pkg)}
-                          className="text-yellow-600 hover:text-yellow-900"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeletePackage(pkg._id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(pkg.status)}`}>
+            {pkg.status.replace('_', ' ').toUpperCase()}
+          </span>
+        </div>
+
+        {/* Grid: 2 columns */}
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          {/* Destination */}
+          <div>
+            <p className="text-gray-500 flex items-center">
+              <MapPin className="w-3 h-3 mr-1" />
+              Destination
+            </p>
+            <p className="font-medium">{pkg.destination?.join(', ')}</p>
+          </div>
+
+          {/* Duration */}
+          <div>
+            <p className="text-gray-500">Duration</p>
+            <p className="font-medium">{pkg.duration}</p>
+          </div>
+
+          {/* Draw Date */}
+          <div>
+            <p className="text-gray-500">Draw Date</p>
+            <p className="font-medium">
+              {pkg.drawDate ? new Date(pkg.drawDate).toLocaleDateString() : 'N/A'}
+            </p>
+          </div>
+
+          {/* Installment */}
+          <div>
+            <p className="text-gray-500">Installment</p>
+            <p className="font-medium text-green-600">
+              ₹{(pkg.monthlyInstallment || 0).toLocaleString()}
+            </p>
           </div>
         </div>
+
+        {/* Actions */}
+        <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-gray-100">
+          <Link
+            to={`/admin/package/details/${pkg._id}`}
+            className="text-blue-600 hover:text-blue-800"
+          >
+            <Eye className="w-5 h-5" />
+          </Link>
+          <button
+            onClick={() => openEditModal(pkg)}
+            className="text-yellow-600 hover:text-yellow-800"
+          >
+            <Edit className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => handleDeletePackage(pkg._id)}
+            className="text-red-600 hover:text-red-800"
+          >
+            <Trash2 className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* Create/Edit Package Modal */}
         <Modal

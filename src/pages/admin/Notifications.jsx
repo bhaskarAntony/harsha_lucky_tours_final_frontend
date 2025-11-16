@@ -221,7 +221,7 @@ const Notifications = () => {
 
   return (
     <AdminLayout>
-        <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gray-50 py-8 px-0 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-extrabold text-indigo-900 mb-8">Notifications</h1>
 

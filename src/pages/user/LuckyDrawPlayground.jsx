@@ -81,7 +81,7 @@ const LuckyDrawPlayground = () => {
 
   return (
     <UserLayout>
-      <div className="space-y-8">
+      <div className="space-y-8 p-4">
         {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Lucky Draw Playground</h1>

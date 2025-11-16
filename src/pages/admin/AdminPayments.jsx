@@ -221,124 +221,215 @@ const AdminPayments = () => {
 
         {/* Payments Table */}
         <div className="card">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900 flex items-center">
-              <CreditCard className="w-5 h-5 mr-2" />
-              All Payments ({payments.length})
-            </h2>
+  <div className="px-6 py-4 border-b border-gray-200">
+    <h2 className="text-lg font-medium text-gray-900 flex items-center">
+      <CreditCard className="w-5 h-5 mr-2" />
+      All Payments ({payments.length})
+    </h2>
+  </div>
+
+  {/* Desktop Table */}
+  <div className="hidden md:block overflow-x-auto">
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            User
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Package
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Amount
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Month/Year
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Payment Mode
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Status
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Transaction ID
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Date
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {payments.map((payment) => (
+          <tr key={payment._id} className="hover:bg-gray-50">
+            <td className="px-6 py-4">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <User className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    {payment.userId?.name || 'Unknown'}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {payment.userId?.virtualCardNumber || '—'}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <p className="text-sm font-medium text-gray-900">
+                {payment.packageId?.name || '—'}
+              </p>
+              <p className="text-sm text-gray-500">
+                {payment.packageId?.month || '—'}
+              </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <p className="text-sm font-medium text-green-600">
+                ₹{payment.amount.toLocaleString()}
+              </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {payment.month} {payment.year}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="flex items-center text-sm text-gray-900">
+                {getPaymentModeIcon(payment.paymentMode)}
+                <span className="ml-2">{payment.paymentMode}</span>
+              </span>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(payment.status)}`}>
+                {payment.status}
+              </span>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <p className="text-sm font-mono text-gray-900">
+                {payment.transactionId?.substring(0, 12)}...
+              </p>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {format(new Date(payment.paymentDate || payment.createdAt), 'MMM dd, yyyy')}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <div className="flex items-center space-x-2">
+                <button className="text-blue-600 hover:text-blue-900">
+                  <Eye className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => openEditModal(payment)}
+                  className="text-yellow-600 hover:text-yellow-900"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDeletePayment(payment._id)}
+                  className="text-red-600 hover:text-red-900"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Mobile Cards */}
+  <div className="md:hidden space-y-4 p-4">
+    {payments.map((payment) => (
+      <div
+        key={payment._id}
+        className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+      >
+        {/* Header: User + Amount */}
+        <div className="flex justify-between items-start mb-3">
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <User className="w-5 h-5 text-blue-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">
+                {payment.userId?.name || 'Unknown User'}
+              </p>
+              <p className="text-xs text-gray-500">
+                {payment.userId?.virtualCardNumber || '—'}
+              </p>
+            </div>
           </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Package
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Month/Year
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Payment Mode
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Transaction ID
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {payments.map((payment) => (
-                  <tr key={payment._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                          <User className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            {payment.userId?.name}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {payment.userId?.virtualCardNumber}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <p className="text-sm font-medium text-gray-900">
-                        {payment.packageId?.name}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {payment.packageId?.month}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <p className="text-sm font-medium text-green-600">
-                        ₹{payment.amount.toLocaleString()}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {payment.month} {payment.year}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="flex items-center text-sm text-gray-900">
-                        {getPaymentModeIcon(payment.paymentMode)}
-                        <span className="ml-2">{payment.paymentMode}</span>
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(payment.status)}`}>
-                        {payment.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <p className="text-sm font-mono text-gray-900">
-                        {payment.transactionId?.substring(0, 12)}...
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {format(new Date(payment.paymentDate || payment.createdAt), 'MMM dd, yyyy')}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center space-x-2">
-                        <button className="text-blue-600 hover:text-blue-900">
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => openEditModal(payment)}
-                          className="text-yellow-600 hover:text-yellow-900"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeletePayment(payment._id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <p className="text-lg font-bold text-green-600">
+            ₹{payment.amount.toLocaleString()}</p>
+        </div>
+
+        {/* Package */}
+        <div className="mb-3">
+          <p className="text-sm text-gray-500">Package</p>
+          <p className="font-medium">
+            {payment.packageId?.name || '—'}
+            {payment.packageId?.month && ` (${payment.packageId.month})`}
+          </p>
+        </div>
+
+        {/* Grid: 2 columns */}
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p className="text-gray-500">Month/Year</p>
+            <p className="font-medium">{payment.month} {payment.year}</p>
+          </div>
+          <div>
+            <p className="text-gray-500">Payment Mode</p>
+            <p className="font-medium flex items-center">
+              {getPaymentModeIcon(payment.paymentMode)}
+              <span className="ml-1">{payment.paymentMode}</span>
+            </p>
+          </div>
+          <div>
+            <p className="text-gray-500">Status</p>
+            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(payment.status)}`}>
+              {payment.status}
+            </span>
+          </div>
+          <div>
+            <p className="text-gray-500">Date</p>
+            <p className="font-medium">
+              {format(new Date(payment.paymentDate || payment.createdAt), 'MMM dd, yyyy')}
+            </p>
+          </div>
+          <div className="col-span-2">
+            <p className="text-gray-500">Transaction ID</p>
+            <p className="font-mono text-xs text-gray-700">
+              {payment.transactionId?.substring(0, 16)}...
+            </p>
           </div>
         </div>
 
+        {/* Actions */}
+        <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-gray-100">
+          <button className="text-blue-600 hover:text-blue-800">
+            <Eye className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => openEditModal(payment)}
+            className="text-yellow-600 hover:text-yellow-800"
+          >
+            <Edit className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => handleDeletePayment(payment._id)}
+            className="text-red-600 hover:text-red-800"
+          >
+            <Trash2 className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
         {/* Create/Edit Payment Modal */}
         <Modal
           isOpen={showCreateModal || showEditModal}

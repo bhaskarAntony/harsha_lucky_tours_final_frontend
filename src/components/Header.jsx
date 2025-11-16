@@ -4,7 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Menu, X, Plane, User, LogOut, Home, FileText, MessageCircle,
   ChevronRight, Shield, ChevronDown, Package, Users, CreditCard,
-  Bell, Settings
+  Bell, Settings,
+  VideoIcon
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -48,6 +49,7 @@ const Header = () => {
     { to: '/dashboard', label: 'Dashboard', icon: Package },
     { to: '/profile', label: 'Profile', icon: User },
     { to: '/lucky-draw', label: 'Lucky Draw', icon: Bell },
+    { to: '/live', label: 'Live Draws', icon: VideoIcon },
   ];
 
   const adminLinks = [

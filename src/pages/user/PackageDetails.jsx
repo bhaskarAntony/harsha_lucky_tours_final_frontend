@@ -62,7 +62,7 @@ const PackageDetails = () => {
 
   return (
     <UserLayout>
-      <div className="space-y-8">
+      <div className="space-y-8 p-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <button

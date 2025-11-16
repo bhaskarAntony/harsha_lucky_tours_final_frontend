@@ -194,66 +194,111 @@ const AdminDashboard = () => {
         </div>
 
         {/* Recent Packages */}
-        <div className="card p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Completed Packages</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Package
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Month/Year
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Participants
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Revenue
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {recentPackages.length > 0 ? (
-                  recentPackages.map((pkg) => (
-                    <tr key={pkg._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">{pkg.name}</p>
-                          <p className="text-sm text-gray-500">{pkg.packageId}</p>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {pkg.month} {pkg.year}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {pkg.totalParticipants || 0}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                        ₹{(pkg.totalRevenue || 0).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                          Completed
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                      No completed packages yet
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+      <div className="card p-6">
+  <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Completed Packages</h2>
+
+  {/* Desktop Table */}
+  <div className="hidden md:block overflow-x-auto">
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Package
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Month/Year
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Participants
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Revenue
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {recentPackages.length > 0 ? (
+          recentPackages.map((pkg) => (
+            <tr key={pkg._id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">{pkg.name}</p>
+                  <p className="text-sm text-gray-500">{pkg.packageId}</p>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                {pkg.month} {pkg.year}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                {pkg.totalParticipants || 0}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                ₹{(pkg.totalRevenue || 0).toLocaleString()}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                  Completed
+                </span>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
+              No completed packages yet
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Mobile Cards */}
+  <div className="md:hidden space-y-4">
+    {recentPackages.length > 0 ? (
+      recentPackages.map((pkg) => (
+        <div
+          key={pkg._id}
+          className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+        >
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <p className="font-semibold text-gray-900">{pkg.name}</p>
+              <p className="text-xs text-gray-500">{pkg.packageId}</p>
+            </div>
+            <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+              Completed
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <p className="text-gray-500">Month/Year</p>
+              <p className="font-medium">{pkg.month} {pkg.year}</p>
+            </div>
+            <div>
+              <p className="text-gray-500">Participants</p>
+              <p className="font-medium">{pkg.totalParticipants || 0}</p>
+            </div>
+            <div className="col-span-2">
+              <p className="text-gray-500">Revenue</p>
+              <p className="font-medium text-green-600">
+                ₹{(pkg.totalRevenue || 0).toLocaleString()}
+              </p>
+            </div>
           </div>
         </div>
+      ))
+    ) : (
+      <div className="text-center py-8 text-gray-500">
+        No completed packages yet
+      </div>
+    )}
+  </div>
+</div>
       </div>
     </AdminLayout>
   );

@@ -1,6 +1,7 @@
 // src/components/Header.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/logo.png'
 import {
   Menu, X, Plane, User, LogOut, Home, FileText, MessageCircle,
   ChevronRight, Shield, ChevronDown, Package, Users, CreditCard,
@@ -71,13 +72,14 @@ const Header = () => {
 
             {/* LOGO */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-2 rounded-lg">
+              {/* <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-2 rounded-lg">
                 <Plane className="h-8 w-8 text-white" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">Harsha Lucky Tours</h1>
                 <p className="text-xs text-gray-600">Travel Lucky Draw</p>
-              </div>
+              </div> */}
+              <img src={logo} alt="harsha lucky tours"  width={120}/>
             </Link>
 
             {/* DESKTOP NAV */}

@@ -22,7 +22,7 @@ const LivePage = () => {
 
   const fetchLiveVideos = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/live-videos');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/user/live-videos');
       setVideos(response.data.data);
       if (response.data.data.length > 0) {
         setSelectedVideo(response.data.data[0]);

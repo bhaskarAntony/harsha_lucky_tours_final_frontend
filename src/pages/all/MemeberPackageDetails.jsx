@@ -25,7 +25,7 @@ const MemberPackageDetails = () => {
 
   const fetchPackageDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/packages/${id}`);
+      const response = await axios.get(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`);
       setPackageData(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch package details');

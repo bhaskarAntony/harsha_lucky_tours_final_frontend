@@ -45,7 +45,7 @@ const AdminPackageDetails = () => {
 
   const fetchPackageDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/packages/${id}`);
+      const response = await axios.get(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`);
       const pkg = response.data.data;
       setPackageData(pkg);
       setFormData({
@@ -73,7 +73,7 @@ const AdminPackageDetails = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/users');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/users');
       setUsers(response.data.data.users || []);
     } catch (error) {
       console.error('Failed to fetch users:', error);
@@ -84,7 +84,7 @@ const AdminPackageDetails = () => {
     e.preventDefault();
     setFormLoading(true);
     try {
-      const response = await axios.put(`http://localhost:5000/api/packages/${id}`, formData);
+      const response = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`, formData);
       setPackageData(response.data.data);
       setEditing(false);
       toast.success('Package updated successfully');
@@ -98,7 +98,7 @@ const AdminPackageDetails = () => {
   const handleMarkAsCurrent = async () => {
     if (window.confirm('Mark this package as current? This will deactivate other current packages.')) {
       try {
-        const updateResponse = await axios.put(`http://localhost:5000/api/packages/${id}`, {
+        const updateResponse = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`, {
           status: 'current'
         });
         setPackageData(updateResponse.data.data);
@@ -118,7 +118,7 @@ const AdminPackageDetails = () => {
     }
     if (window.confirm('Mark this package as draw completed?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/packages/${id}`, { 
+        const response = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`, { 
           status: 'draw_completed' 
         });
         setPackageData(response.data.data);
@@ -138,7 +138,7 @@ const AdminPackageDetails = () => {
     }
     setFormLoading(true);
     try {
-      const winnerResponse = await axios.get(`http://localhost:5000/api/users/${winnerFormData.winnerId}`);
+      const winnerResponse = await axios.get(`https://harsha-lucky-tours-final-backend.onrender.com/api/users/${winnerFormData.winnerId}`);
       const winner = winnerResponse.data;
       const updateData = {
         winner: {
@@ -152,7 +152,7 @@ const AdminPackageDetails = () => {
         },
         status: 'draw_completed'
       };
-      const response = await axios.put(`http://localhost:5000/api/packages/${id}`, updateData);
+      const response = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${id}`, updateData);
       setPackageData(response.data.data);
       toast.success('Winner selected and draw completed successfully!');
       setShowWinnerModal(false);

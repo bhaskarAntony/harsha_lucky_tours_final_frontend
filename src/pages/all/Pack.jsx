@@ -16,7 +16,7 @@ const Pack = () => {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/packages');
+        const { data } = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/packages');
         setPackages(data.data.reverse() || []);
       } catch (err) {
         toast.error('Failed to load packages');

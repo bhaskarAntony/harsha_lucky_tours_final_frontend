@@ -27,7 +27,7 @@ const LuckyDrawPlayground = () => {
 
   const fetchPackages = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/packages/playground');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/user/packages/playground');
       setPackages(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch packages');

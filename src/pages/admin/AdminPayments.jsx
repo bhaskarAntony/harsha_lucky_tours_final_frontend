@@ -46,7 +46,7 @@ const AdminPayments = () => {
 
   const fetchPayments = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/payments', {
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/payments', {
         params: {
           page: currentPage,
           limit: 10,
@@ -64,8 +64,8 @@ const AdminPayments = () => {
   const fetchDropdownData = async () => {
     try {
       const [usersRes, packagesRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/admin/users'),
-        axios.get('http://localhost:5000/api/packages')
+        axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users'),
+        axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/packages')
       ]);
       setUsers(usersRes.data.data.users || []);
       setPackages(packagesRes.data.data || []);
@@ -84,7 +84,7 @@ const AdminPayments = () => {
     setFormLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/payments', formData);
+      await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/payments', formData);
       toast.success('Payment created successfully');
       setShowCreateModal(false);
       resetForm();
@@ -101,7 +101,7 @@ const AdminPayments = () => {
     setFormLoading(true);
 
     try {
-      await axios.put(`http://localhost:5000/api/admin/payments/${formData._id}`, formData);
+      await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/admin/payments/${formData._id}`, formData);
       toast.success('Payment updated successfully');
       setShowEditModal(false);
       resetForm();
@@ -116,7 +116,7 @@ const AdminPayments = () => {
   const handleDeletePayment = async (paymentId) => {
     if (window.confirm('Are you sure you want to delete this payment?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/payments/${paymentId}`);
+        await axios.delete(`https://harsha-lucky-tours-final-backend.onrender.com/api/admin/payments/${paymentId}`);
         toast.success('Payment deleted successfully');
         fetchPayments();
       } catch (error) {

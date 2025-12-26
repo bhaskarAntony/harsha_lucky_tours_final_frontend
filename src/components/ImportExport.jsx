@@ -15,7 +15,7 @@ export default function ImportExport({ type, onSuccess, onCancel }) {
     setImporting(true);
 
     try {
-      const endpoint = type === 'users' ? 'http://localhost:5000/api/fromadmin/import' : 'http://localhost:5000/api/pending/bulk-import';
+      const endpoint = type === 'users' ? 'https://harsha-lucky-tours-final-backend.onrender.com/api/fromadmin/import' : 'https://harsha-lucky-tours-final-backend.onrender.com/api/pending/bulk-import';
       console.log(endpoint);
       
       const { data } = await axios.post(endpoint, fd, {

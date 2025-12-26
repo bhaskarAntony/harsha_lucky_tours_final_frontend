@@ -19,7 +19,7 @@ const UserDetails = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/admin/users/${id}`);
+      const response = await axios.get(`https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users/${id}`);
       setUserData(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch user details');

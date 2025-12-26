@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get('http://localhost:5000/api/auth/me');
+          const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/auth/me');
           setUser(response.data.user);
         } catch (error) {
           localStorage.removeItem('token');
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, isAdmin = false) => {
     try {
-      const endpoint = isAdmin ? 'http://localhost:5000/api/auth/login' : 'http://localhost:5000/api/auth/login';
+      const endpoint = isAdmin ? 'https://harsha-lucky-tours-final-backend.onrender.com/api/auth/login' : 'https://harsha-lucky-tours-final-backend.onrender.com/api/auth/login';
       const response = await axios.post(endpoint, { email, password });
       
       const { token: newToken, user: userData } = response.data;
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', userData);
+      const response = await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/auth/register', userData);
       
       const { token: newToken, user: newUser } = response.data;
       

@@ -18,7 +18,7 @@ export default function PendingPayments() {
 
   const fetchPayments = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/pending');
+      const { data } = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/pending');
       const list = Array.isArray(data) ? data : [];
       setPayments(list);
     } catch (err) {
@@ -31,7 +31,7 @@ export default function PendingPayments() {
 
   const updateStatus = async (id, status) => {
     try {
-      const { data } = await axios.put(`http://localhost:5000/api/pending/${id}`, { status });
+      const { data } = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/pending/${id}`, { status });
       setPayments(prev => prev.map(p => p._id === id ? data : p));
       toast.success('Status updated');
     } catch {

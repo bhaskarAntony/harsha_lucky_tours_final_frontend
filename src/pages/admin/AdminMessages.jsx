@@ -43,7 +43,7 @@ const AdminMessages = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/messages', {
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/messages', {
         params: { search: searchTerm }
       });
       setMessages(response.data.data || []);
@@ -56,7 +56,7 @@ const AdminMessages = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/users');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users');
       setUsers(response.data.data.users || []);
     } catch (error) {
       console.error('Failed to fetch users');
@@ -72,7 +72,7 @@ const AdminMessages = () => {
     setFormLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/messages', {
+      await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/messages', {
         ...formData,
         userIds: selectedUsers
       });
@@ -90,7 +90,7 @@ const AdminMessages = () => {
   const handleDeleteMessage = async (messageId) => {
     if (window.confirm('Are you sure you want to delete this message record?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/messages/${messageId}`);
+        await axios.delete(`https://harsha-lucky-tours-final-backend.onrender.com/api/admin/messages/${messageId}`);
         toast.success('Message record deleted successfully');
         fetchMessages();
       } catch (error) {

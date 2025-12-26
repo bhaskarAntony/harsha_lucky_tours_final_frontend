@@ -28,7 +28,7 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/dashboard');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/user/dashboard');
       setDashboardData(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch dashboard data');
@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   const handleViewPayment = async (paymentId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user/payments/${paymentId}`);
+      const response = await axios.get(`https://harsha-lucky-tours-final-backend.onrender.com/api/user/payments/${paymentId}`);
       setSelectedPayment(response.data.data);
       setShowPaymentModal(true);
     } catch (error) {

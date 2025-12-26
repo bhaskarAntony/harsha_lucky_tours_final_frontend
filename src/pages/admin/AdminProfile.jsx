@@ -31,7 +31,7 @@ const AdminProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/me');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/auth/me');
       setProfile(response.data);
       setFormData({
         name: response.data.name,
@@ -52,7 +52,7 @@ const AdminProfile = () => {
     setFormLoading(true);
 
     try {
-      const response = await axios.put('http://localhost:5000/api/auth/profile', formData);
+      const response = await axios.put('https://harsha-lucky-tours-final-backend.onrender.com/api/auth/profile', formData);
       setProfile(response.data);
       setIsEditing(false);
       toast.success('Profile updated successfully');
@@ -78,7 +78,7 @@ const AdminProfile = () => {
 
     setFormLoading(true);
     try {
-      await axios.put('http://localhost:5000/api/auth/change-password', passwordData);
+      await axios.put('https://harsha-lucky-tours-final-backend.onrender.com/api/auth/change-password', passwordData);
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
       toast.success('Password changed successfully');
     } catch (error) {

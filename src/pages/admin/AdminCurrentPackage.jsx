@@ -39,7 +39,7 @@ const AdminCurrentPackage = () => {
 
   const fetchCurrentPackage = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/packages/current');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/packages/current');
       setCurrentPackage(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch current package');
@@ -50,7 +50,7 @@ const AdminCurrentPackage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/users');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users');
       setUsers(response.data.data.users || []);
     } catch (error) {
       console.error('Failed to fetch users');
@@ -65,7 +65,7 @@ const AdminCurrentPackage = () => {
 
     setFormLoading(true);
     try {
-      await axios.put('http://localhost:5000/api/admin/packages/current/update', {
+      await axios.put('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/packages/current/update', {
         liveVideoUrl: videoUrl
       });
       toast.success('Live video updated successfully');
@@ -82,7 +82,7 @@ const AdminCurrentPackage = () => {
     setFormLoading(true);
 
     try {
-      await axios.put('http://localhost:5000/api/packages/current/update', {
+      await axios.put('https://harsha-lucky-tours-final-backend.onrender.com/api/packages/current/update', {
         winnerId: winnerFormData.winnerId,
         feedbackMessage: winnerFormData.feedbackMessage,
         feedbackVideo: winnerFormData.feedbackVideo

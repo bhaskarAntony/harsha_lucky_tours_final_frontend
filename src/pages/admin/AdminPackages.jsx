@@ -50,7 +50,7 @@ const AdminPackages = () => {
 
   const fetchPackages = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/packages', {
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/packages', {
         params: {
           page: currentPage,
           limit: 10,
@@ -76,7 +76,7 @@ const AdminPackages = () => {
 
     try {
       const payload = normalizeFormData(formData);
-      await axios.post('http://localhost:5000/api/packages', payload);
+      await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/packages', payload);
       toast.success('Package created successfully');
       setShowCreateModal(false);
       resetForm();
@@ -95,7 +95,7 @@ const AdminPackages = () => {
 
     try {
       const payload = normalizeFormData(formData);
-      await axios.put(`http://localhost:5000/api/packages/${selectedPackage._id}`, payload);
+      await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${selectedPackage._id}`, payload);
       toast.success('Package updated successfully');
       setShowEditModal(false);
       resetForm();
@@ -110,7 +110,7 @@ const AdminPackages = () => {
   const handleDeletePackage = async (packageId) => {
     if (window.confirm('Are you sure you want to delete this package?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/packages/${packageId}`);
+        await axios.delete(`https://harsha-lucky-tours-final-backend.onrender.com/api/packages/${packageId}`);
         toast.success('Package deleted successfully');
         fetchPackages();
       } catch (error) {

@@ -28,7 +28,7 @@ const Notifications = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/users');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users');
       // Ensure it's an array
       setUsers(Array.isArray(response.data.data.users) ? response.data.data.users : []);
     } catch (error) {
@@ -39,7 +39,7 @@ const Notifications = () => {
 
   const fetchPendingPayments = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/pending');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/pending');
       // CRITICAL FIX: Extract array safely
       let payments = [];
 
@@ -106,8 +106,8 @@ const Notifications = () => {
     try {
       const endpoint =
         notificationType === 'sms'
-          ? 'http://localhost:5000/api/sms/single'
-          : 'http://localhost:5000/api/email/single';
+          ? 'https://harsha-lucky-tours-final-backend.onrender.com/api/sms/single'
+          : 'https://harsha-lucky-tours-final-backend.onrender.com/api/email/single';
 
       let payload = { message: singleMessage };
 
@@ -173,8 +173,8 @@ const Notifications = () => {
 
       const endpoint =
         notificationType === 'sms'
-          ? 'http://localhost:5000/api/sms/bulk'
-          : 'http://localhost:5000/api/email/bulk';
+          ? 'https://harsha-lucky-tours-final-backend.onrender.com/api/sms/bulk'
+          : 'https://harsha-lucky-tours-final-backend.onrender.com/api/email/bulk';
 
       const payload = notificationType === 'sms'
         ? { message, recipients }
@@ -202,7 +202,7 @@ const Notifications = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/payment-reminders', {
+      const response = await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/payment-reminders', {
         type: notificationType,
         customMessage: message.trim() || undefined,
       });

@@ -35,7 +35,7 @@ export default function Users() {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/admin/users', {
+      const { data } = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users', {
         params: { page: currentPage, limit: 10, search: searchTerm },
       });
       setUsers(data.data?.users ?? []);
@@ -58,7 +58,7 @@ export default function Users() {
     e.preventDefault();
     setFormLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/fromadmin', createForm);
+      await axios.post('https://harsha-lucky-tours-final-backend.onrender.com/api/fromadmin', createForm);
       toast.success('User created');
       setShowCreate(false);
       setCreateForm({
@@ -87,7 +87,7 @@ export default function Users() {
 
   const saveEdit = async () => {
     try {
-      const { data } = await axios.put(`http://localhost:5000/api/fromadmin/${editingId}`, editForm);
+      const { data } = await axios.put(`https://harsha-lucky-tours-final-backend.onrender.com/api/fromadmin/${editingId}`, editForm);
       setUsers((prev) => prev.map((u) => (u._id === editingId ? data : u)));
       setEditingId(null);
       toast.success('User updated');
@@ -105,7 +105,7 @@ export default function Users() {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this user?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/users/${id}`);
+      await axios.delete(`https://harsha-lucky-tours-final-backend.onrender.com/api/admin/users/${id}`);
       toast.success('User deleted');
       fetchUsers();
     } catch {
@@ -116,7 +116,7 @@ export default function Users() {
   // --------------------------------------------------- EXPORT
   const handleExport = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/fromadmin/export', { responseType: 'blob' });
+      const { data } = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/fromadmin/export', { responseType: 'blob' });
       const url = URL.createObjectURL(new Blob([data]));
       const a = document.createElement('a');
       a.href = url;

@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/dashboard');
+      const response = await axios.get('https://harsha-lucky-tours-final-backend.onrender.com/api/admin/dashboard');
       setDashboardData(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch dashboard data');
